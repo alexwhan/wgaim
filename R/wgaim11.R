@@ -242,8 +242,8 @@ mergeData <- function(phenoData, geneticData, by) {
     int.cnt <- 2:dim(geneticData)[2]
     p <- length(int.cnt)
     whg <- !duplicated(phenoData[[by]])
-    whg <- geneticData[[by]] %in% phenoData[whg,by]
-    ids <- as.character(geneticData[whg, by])
+    whg <- geneticData[[by]] %in% phenoData[[by]][whg]
+    ids <- as.character(geneticData[[by]][whg])
     q <- length(ids)
     phenoData <- cbind(ord = 1:nrow(phenoData), phenoData)
     if(p > q) {
