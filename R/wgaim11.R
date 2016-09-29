@@ -375,21 +375,21 @@ summary.wgaim <- function (object, intervalObj, LOD = TRUE, ...)
     if (object$QTL$method == "random") {
         Pvalue <- (1 - pchisq(zrat^2, df=1))/2
         adds <- cbind(round(Pvalue, 3), adds)
-        addn <- c("Prob", "% Var")
+        addn <- c("prob", "perc_var")
     }
     else {
         adds <- cbind(round(2 * (1 - pnorm(abs(zrat))), 3), adds)
-        addn <- c("Pvalue", "% Var")
+        addn <- c("pvalue", "perc_var")
     }
     qtlmat <- as.data.frame(matrix(getQTL(object, intervalObj),
                                    nrow = length(qtls)))
     qtlmat <- cbind.data.frame(qtlmat[, c(1, 3:dim(qtlmat)[2])],
                                round(qtls, 3), adds)
     if (object$QTL$type == "interval")
-        collab <- c("Chromosome", "Left Marker", "dist(cM)",
-                    "Right Marker", "dist(cM)", "Size", addn)
-    else collab <- c("Chromosome", "Marker", "dist(cM)",
-                     "Size", addn)
+        collab <- c("chromosome", "left_marker", "left_dist_cM",
+                    "right_marker", "right_dist_cM", "size", addn)
+    else collab <- c("chromosome", "marker", "dist_cM",
+                     "size", addn)
     if (LOD) {
         qtlmat <- cbind.data.frame(qtlmat, round(0.5 * log(exp(zrat^2),
                                                            base = 10), 3))
