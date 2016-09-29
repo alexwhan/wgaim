@@ -16,10 +16,10 @@ breakout = -1, TypeI = 0.05, attempts = 5, trace = TRUE, verboseLev = 0, ...)
         stop("intervalObj is not of class \"interval\"")
     if (is.null(merge.by))
         stop("Need name of matching column to merge datasets.")
-    if (is.null(other <- intervalObj$pheno[, merge.by]))
+    if (is.null(other <- intervalObj$pheno[[merge.by]]))
         stop("Genotypic data does not contain column \"", merge.by,
              "\".")
-    if (is.null(phenoData[, merge.by]))
+    if (is.null(phenoData[[merge.by]]))
         stop("Phenotypic data does not contain column \"", merge.by,
             "\".")
     if (!(method %in% c("fixed","random")))
@@ -28,7 +28,7 @@ breakout = -1, TypeI = 0.05, attempts = 5, trace = TRUE, verboseLev = 0, ...)
         stop("Selection method has to be either \"interval\" or \"chromosome\" (see ?wgaim.asreml).")
     if(!is.numeric(breakout) | breakout < -1 | breakout == 0)
         stop("breakout argument must be -1 or a positive integer.")
-    mby <- pmatch(as.character(other), as.character(phenoData[, merge.by]))
+    mby <- pmatch(as.character(other), as.character(phenoData[[merge.by]]))
     if (all(is.na(mby)))
         stop("Names in genotypic \"", merge.by, "\" column do not match any names in phenotypic \"",
              merge.by, "\" column.")
@@ -143,7 +143,7 @@ breakout = -1, TypeI = 0.05, attempts = 5, trace = TRUE, verboseLev = 0, ...)
         if (is.null(add.qtl$xtra))
             phenoData[[qtl.x]] <- mD$asdata[[qtl[which.i]]] * 100
         else {
-            tmp.1 <- cbind.data.frame(geneticData[, merge.by], geneticData[, qtl[which.i]])
+            tmp.1 <- cbind.data.frame(geneticData[[merge.by]], geneticData[, qtl[which.i]])
             names(tmp.1) <- c(merge.by, qtl.x)
             phenoData <- cbind.data.frame(ord = 1:nrow(phenoData), phenoData)
             phenoData <- merge(phenoData, tmp.1, by = merge.by, all.x = TRUE, all.y = FALSE)
@@ -241,8 +241,8 @@ mergeData <- function(phenoData, geneticData, by) {
 
     int.cnt <- 2:dim(geneticData)[2]
     p <- length(int.cnt)
-    whg <- !duplicated(phenoData[,by])
-    whg <- geneticData[, by] %in% phenoData[whg,by]
+    whg <- !duplicated(phenoData[[by]])
+    whg <- geneticData[[by]] %in% phenoData[whg,by]
     ids <- as.character(geneticData[whg, by])
     q <- length(ids)
     phenoData <- cbind(ord = 1:nrow(phenoData), phenoData)
