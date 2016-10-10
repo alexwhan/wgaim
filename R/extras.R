@@ -5,7 +5,7 @@
 #' @param ... other arguments
 #' 
 #' @export add_meta
-add_meta <- function(x) UseMethod("f")
+add_meta <- function(x) UseMethod("add_meta")
 
 #' @rdname add_meta
 #' @export
