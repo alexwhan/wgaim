@@ -25,7 +25,8 @@ qtlTable,
 summary.wgaim,
 wgaim,
 wgaim.asreml,
-wgaim.default)
+wgaim.default,
+add_meta)
 
 ##[S3 Methods]
 S3method(summary, wgaim)
@@ -36,4 +37,5 @@ S3method(link.map, cross)
 S3method(link.map, default)
 S3method(wgaim, asreml)
 S3method(wgaim, default)
-
+S3method(add_meta,default)
+S3method(add_meta,wgaim)
