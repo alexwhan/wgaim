@@ -26,7 +26,8 @@ summary.wgaim,
 wgaim,
 wgaim.asreml,
 wgaim.default,
-add_meta)
+add_meta,
+add_meta.wgaim)
 
 ##[S3 Methods]
 S3method(summary, wgaim)
